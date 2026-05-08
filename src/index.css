@@ -1,29 +1,39 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap');
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
- 
+
 @layer base {
   :root {
-    --background: 0 0% 100%;
-    --foreground: 240 10% 3.9%;
-    --card: 0 0% 100%;
-    --card-foreground: 240 10% 3.9%;
-    --popover: 0 0% 100%;
-    --popover-foreground: 240 10% 3.9%;
-    --primary: 262 83% 58%;
-    --primary-foreground: 0 0% 98%;
-    --secondary: 240 4.8% 95.9%;
-    --secondary-foreground: 240 5.9% 10%;
-    --muted: 240 4.8% 95.9%;
-    --muted-foreground: 240 3.8% 46.1%;
-    --accent: 262 83% 58%;
-    --accent-foreground: 0 0% 98%;
-    --destructive: 0 84.2% 60.2%;
+    --background: 0 0% 7%;
+    --foreground: 0 0% 100%;
+    --card: 0 0% 11%;
+    --card-foreground: 0 0% 100%;
+    --popover: 0 0% 11%;
+    --popover-foreground: 0 0% 100%;
+    --primary: 55 100% 50%;
+    --primary-foreground: 0 0% 7%;
+    --secondary: 0 0% 15%;
+    --secondary-foreground: 0 0% 100%;
+    --muted: 0 0% 15%;
+    --muted-foreground: 0 0% 65%;
+    --accent: 55 100% 50%;
+    --accent-foreground: 0 0% 7%;
+    --destructive: 0 72% 51%;
     --destructive-foreground: 0 0% 98%;
-    --border: 240 5.9% 90%;
-    --input: 240 5.9% 90%;
-    --ring: 262 83% 58%;
-    --radius: 1rem;
+    --border: 0 0% 20%;
+    --input: 0 0% 15%;
+    --ring: 55 100% 50%;
+    --radius: 0.25rem;
+    --sidebar-background: 0 0% 10%;
+    --sidebar-foreground: 0 0% 85%;
+    --sidebar-primary: 55 100% 50%;
+    --sidebar-primary-foreground: 0 0% 7%;
+    --sidebar-accent: 0 0% 14%;
+    --sidebar-accent-foreground: 0 0% 100%;
+    --sidebar-border: 0 0% 18%;
+    --sidebar-ring: 55 100% 50%;
   }
 }
 
@@ -32,73 +42,69 @@
     @apply border-border;
   }
   body {
-    @apply bg-gradient-to-br from-purple-500 via-pink-500 to-orange-400 min-h-screen;
+    @apply bg-[#1A1A19] text-white font-sans;
     font-feature-settings: "rlig" 1, "calt" 1;
+  }
+  input, textarea, select {
+    @apply font-sans;
   }
 }
 
-.game-board {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 0.75rem;
-  width: 100%;
-  max-width: 400px;
-  margin: 0 auto;
+@layer components {
+  .arsenal-sidebar {
+    background-color: #1A1A19;
+    border-right: 1px solid #2a2a28;
+  }
+  .arsenal-card {
+    background-color: #222221;
+    border: 1px solid #2a2a28;
+  }
+  .arsenal-input {
+    background-color: #2a2a28;
+    border: 1px solid #3a3a38;
+    color: #ffffff;
+  }
+  .arsenal-input:focus {
+    border-color: #FFE600;
+    outline: none;
+  }
+  .arsenal-table-row:hover {
+    background-color: rgba(255, 230, 0, 0.04);
+  }
+  .status-em-uso {
+    @apply bg-green-900/40 text-green-400 border border-green-800;
+  }
+  .status-estoque {
+    @apply bg-blue-900/40 text-blue-400 border border-blue-800;
+  }
+  .status-manutencao {
+    @apply bg-yellow-900/40 text-yellow-400 border border-yellow-800;
+  }
+  .status-descartado {
+    @apply bg-red-900/40 text-red-400 border border-red-800;
+  }
+  .expiry-danger {
+    @apply bg-red-900/40 text-red-400 border border-red-800;
+  }
+  .expiry-warning {
+    @apply bg-yellow-900/40 text-yellow-400 border border-yellow-800;
+  }
+  .expiry-ok {
+    @apply bg-green-900/40 text-green-400 border border-green-800;
+  }
 }
 
-.game-cell {
-  aspect-ratio: 1;
-  @apply flex items-center justify-center text-4xl font-bold transition-all duration-300 
-         rounded-2xl hover:opacity-90 active:scale-95;
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
 }
-
-.game-cell.winning {
-  @apply bg-gradient-to-br from-green-400 to-green-500 text-white;
-  animation: pulse 2s infinite;
+::-webkit-scrollbar-track {
+  background: #1A1A19;
 }
-
-@keyframes pulse {
-  0% { transform: scale(1); }
-  50% { transform: scale(1.05); }
-  100% { transform: scale(1); }
+::-webkit-scrollbar-thumb {
+  background: #3a3a38;
+  border-radius: 3px;
 }
-
-@keyframes bounce {
-  0%, 100% { transform: translateY(0); }
-  50% { transform: translateY(-20px); }
-}
-
-@keyframes fade-in {
-  from { opacity: 0; transform: translateY(10px); }
-  to { opacity: 1; transform: translateY(0); }
-}
-
-.animate-bounce {
-  animation: bounce 1s infinite;
-}
-
-.animate-fade-in {
-  animation: fade-in 0.5s ease-out forwards;
-}
-
-.page-transition-enter {
-  opacity: 0;
-  transform: translateY(20px);
-}
-
-.page-transition-enter-active {
-  opacity: 1;
-  transform: translateY(0);
-  transition: opacity 300ms, transform 300ms;
-}
-
-.page-transition-exit {
-  opacity: 1;
-  transform: translateY(0);
-}
-
-.page-transition-exit-active {
-  opacity: 0;
-  transform: translateY(-20px);
-  transition: opacity 300ms, transform 300ms;
+::-webkit-scrollbar-thumb:hover {
+  background: #FFE600;
 }
